@@ -17,7 +17,7 @@ class PaymentProcessor(object):
     def verify_payments(self, payments):
         successful_payments = []
         for payment in payments:
-            if payment.is_successful(payment):
+            if payment.is_successful():
                 successful_payments.append(payment)
 
         return successful_payments

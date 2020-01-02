@@ -23,12 +23,10 @@ class Payment(object):
         self.process_trx(data)
         
 
-    def is_successful(self, payment):
-        payment_dict = vars(payment)
-        if "card" in payment_dict:
+    def is_successful(self):
+        if 'bank' not in vars(self):
             return self.card.status == "processed"
-        elif "bank" in payment_dict:
-            return self.bank.status == "processed"
+        
 
     def process_trx(self, data):
         self.customer_id = int(data.get("customer_id"))
@@ -38,10 +36,11 @@ class Payment(object):
         self.amount = total_amount - self.fee
         
         if "bank_account_id" in data:
+            print(data)
             id_key = "bank_account_id"
             bank = Bank()
             bank.bank_account_id = int(data[id_key])
-            # bank.status = data["bank_transfer_status"]
+            bank.status = 'success'
             self.bank = bank
         elif "card_id" in data:
             id_key = "card_id"
