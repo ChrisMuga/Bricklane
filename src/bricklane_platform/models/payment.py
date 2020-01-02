@@ -16,6 +16,15 @@ class Payment(object):
 
     def __init__(self, data=None):
         print(data)
+        if "bank_account_id" in data:
+            print("Bank...")
+            id = "bank_account_id"
+        elif "card_id" in data:
+            id = "card_id"
+            print("Card...")
+        print("ID - , %s!" % id)
+        print(data.get("bank_account_id"))
+
 
         if not data:
             return
