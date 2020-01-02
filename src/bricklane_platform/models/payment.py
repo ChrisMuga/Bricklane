@@ -27,7 +27,6 @@ class Payment(object):
         if 'bank' not in vars(self):
             return self.card.status == "processed"
         
-
     def process_trx(self, data):
         self.customer_id = int(data.get("customer_id"))
         self.date = parse(data["date"])
@@ -36,7 +35,6 @@ class Payment(object):
         self.amount = total_amount - self.fee
         
         if "bank_account_id" in data:
-            print(data)
             id_key = "bank_account_id"
             bank = Bank()
             bank.bank_account_id = int(data[id_key])
