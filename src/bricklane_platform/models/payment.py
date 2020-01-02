@@ -1,7 +1,7 @@
 from decimal import Decimal
 from dateutil.parser import parse
 
-from bricklane_platform.models.card import Bank
+from bricklane_platform.models.bank import Bank
 from bricklane_platform.models.card import Card
 from bricklane_platform.config import PAYMENT_FEE_RATE
 
