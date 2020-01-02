@@ -1,7 +1,7 @@
 from decimal import Decimal
 from dateutil.parser import parse
 
-
+from bricklane_platform.models.card import Bank
 from bricklane_platform.models.card import Card
 from bricklane_platform.config import PAYMENT_FEE_RATE
 
@@ -13,16 +13,18 @@ class Payment(object):
     amount = None
     fee = None
     card_id = None
+    id_key = None
+    bank_account_id = None
 
     def __init__(self, data=None):
         print(data)
         if "bank_account_id" in data:
             print("Bank...")
-            id = "bank_account_id"
+            id_key = "bank_account_id"
         elif "card_id" in data:
-            id = "card_id"
+            id_key = "card_id"
             print("Card...")
-        print("ID - , %s!" % id)
+        print("ID - , %s!" % id_key)
         print(data.get("bank_account_id"))
 
 
