@@ -23,11 +23,14 @@ class Payment(object):
         self.process_trx(data)
         
 
-    def is_successful(self):
-        return self.card.status == "processed"
+    def is_successful(self, payment):
+        payment_dict = vars(payment)
+        if "card" in payment_dict:
+            return self.card.status == "processed"
+        elif "bank" in payment_dict:
+            return self.bank.status == "processed"
 
     def process_trx(self, data):
-        print(data)
         self.customer_id = int(data.get("customer_id"))
         self.date = parse(data["date"])
         total_amount = Decimal(data["amount"])
@@ -35,7 +38,6 @@ class Payment(object):
         self.amount = total_amount - self.fee
         
         if "bank_account_id" in data:
-            print("Bank...")
             id_key = "bank_account_id"
             bank = Bank()
             bank.bank_account_id = int(data[id_key])
@@ -43,7 +45,6 @@ class Payment(object):
             self.bank = bank
         elif "card_id" in data:
             id_key = "card_id"
-            print("Card...")
             card = Card()
             card.card_id = int(data.get(id_key))
             card.status = data["card_status"]
