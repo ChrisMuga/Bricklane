@@ -17,20 +17,10 @@ class Payment(object):
     bank_account_id = None
 
     def __init__(self, data=None):
-        print(data)
-        if "bank_account_id" in data:
-            print("Bank...")
-            id_key = "bank_account_id"
-        elif "card_id" in data:
-            id_key = "card_id"
-            print("Card...")
-        print("ID - , %s!" % id_key)
-        print(data.get("bank_account_id"))
-
-
+        
         if not data:
             return
-
+        self.process_trx(data)
         self.customer_id = int(data["customer_id"])
         self.date = parse(data["date"])
 
@@ -45,3 +35,14 @@ class Payment(object):
 
     def is_successful(self):
         return self.card.status == "processed"
+
+    def process_trx(self, data):
+        print(data)
+        if "bank_account_id" in data:
+            print("Bank...")
+            id_key = "bank_account_id"
+        elif "card_id" in data:
+            id_key = "card_id"
+            print("Card...")
+        print("ID - , %s!" % id_key)
+        print(data.get("bank_account_id"))
